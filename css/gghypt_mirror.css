@@ -1,0 +1,146 @@
+body{
+
+}
+@-moz-document url-prefix() {
+    /*针对firefox边框也跟着字体变色的问题，单独设置firefox的CSS*/
+    #DetailsView1 tr:nth-child(-n+6) td,#DetailsView2 tr:nth-child(-n+5) td,#DetailsView3 tr:nth-child(-n+4) td{
+        border:1px solid black !important;
+    }
+    #DetailsView3 tr:nth-child(even) td{
+        border:1px solid black !important;
+    }
+}
+a:link { 
+    color:blue;
+    text-decoration: none;
+}
+#Button1,#Button2,#Button3,#Button4{
+    font-size: 15px;
+    padding: 3px 15px;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50; /* Green */
+    border-radius: 20%;
+	outline:none;
+
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+#Button1:hover, #Button2:hover,#Button3:hover,#Button4:hover {
+    font-size: 15px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    cursor:pointer;
+
+}
+.BlueCarID{
+    background: rgb(0,122,204);
+    color: white;
+}
+.auto-style1 {
+    width: 100%;
+}
+.auto-style2 {
+    width: 45%;
+    vertical-align: text-top;
+}
+.auto-style3 {
+    width: 30%;
+    vertical-align: text-top;
+}
+.auto-style4 {
+    width: 25%;
+    vertical-align: text-top;
+}
+td {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#GridView1 th{
+	background: #C1DBFA;
+}
+#GridView1 th a {
+    text-decoration: none;
+}
+#GridView1 tr:nth-child(even){
+    background: #E8E8E8;
+}
+#GridView1 tr:hover{
+    /*指针所指样式*/
+	background: #FFFF99;
+}
+#GridView1 tr:last-child:hover{
+    background: #C1DBFA;
+}
+#GridView1 tr:last-child a,#GridView1 tr:last-child span{
+    display:inline-block;
+    width:100%; height:100%;
+}
+#GridView1 tr:last-child a:hover{
+    background: #FFFF99;
+}
+#GridView1 tr:last-child span{
+    background: #DCF8A8;
+}
+
+#DetailsView1 tr:nth-child(even){
+    background: #C1DBFA;
+}
+#DetailsView2 tr:nth-child(even){
+    background: #C1DBFA;
+}
+#DetailsView1 tr:nth-child(-n+6) td,#DetailsView2 tr:nth-child(-n+5) td,#DetailsView3 tr:nth-child(1) td,#DetailsView3 tr:nth-child(3) td{
+    color: red;
+}
+
+#DetailsView3 tr:nth-child(even){
+    color: white;
+    background: #6F81A8;
+}
+.selectRow  {
+    background: #DCF8A8 !important;
+}		
+.kong {
+    width: 100%;
+    height: 1px;
+}
+/*  设置6、7列看不见（详情按钮列） --------------*/
+#GridView1 th:nth-last-child(2){
+	display:none;
+}
+#GridView1 th:nth-last-child(1){
+	display:none;
+}
+#GridView1 td:nth-last-child(2){
+	display:none;
+}
+#GridView1 td:nth-last-child(1){
+	display:none;
+}
+
+/* 设置底行的一些样式 */
+#GridView1 tr:last-child table{ 
+    width: 100%; 
+    table-layout: fixed; 
+    background: #C1DBFA;
+    text-align:center;
+}
+
+
+/*  恢复被误伤的底行（页数跳转行）的6、7列 */
+#GridView1 tr:last-child td:first-child, #GridView1 tr:last-child table tr td{
+    display: table-cell;
+}
+/*  底行里的a标签，去除下划线   */
+#GridView1 tr:last-child table tr td a{text-decoration:none}
+
+/*  --------------------------------------------- */
+        
+.td_tips {
+    background: #FFFF99;
+    text-align: center;
+    border-radius: 25px;
+    border: 1px solid black;
+}

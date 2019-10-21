@@ -1,0 +1,846 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>部分终端货运平台上线指令</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?6fc846ea74bd6cad3eae7a682d2abff2";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>		
+	</head>
+	<body>
+		<style>
+			h2,h4{text-align:center}
+			textarea{text-transform:uppercase;}
+			th,td{white-space:nowrap}
+			.city_id{color:black;font-weight:bold}
+			.nums{color:red;font-weight:bold}
+			.vels{color:blue;font-weight:bold}
+			.ids{color:magenta;font-weight:bold}
+			.sims{color:green;font-weight:bold}	
+			#smart_input{
+				background-color:#C1DBFA;
+				border:1px solid;
+				text-align:center;
+			}			
+			#sms{width:100%}
+			
+			#qrcode_div{margin:0 auto;text-align:center;}
+			.black_overlay{ 
+				display: none; 
+				position: absolute; 
+				top: 0%; 
+				left: 0%; 
+				width: 100%; 
+				height: 100%; 
+				background-color: black; 
+				z-index:1001; 
+				-moz-opacity: 0.8; 
+				opacity:.80; 
+				filter: alpha(opacity=88); 
+			} 
+			.white_content { 
+				display: none; 
+				position: absolute; 
+				top: 25%; 
+				left: 15%; 
+				width: (185/128*256)px; 
+				height: (210/128*256)px; 
+				padding: 20px; 
+				border: 10px solid orange; 
+				background-color: white; 
+				z-index:1002; 
+				overflow: auto; 
+			}			
+			
+			@media (min-width: 768px){ /*当屏幕尺寸大于768px时，应用下面的CSS样式*/
+				.phone{display:none;}//PC端页面，不显示发送短信按钮
+			}
+			@media (max-width: 767px){ /*当屏幕尺寸小于767px时，应用下面的CSS样式*/
+				.pc{display:none;}//移动端页面，不显示智能填充组件
+			}
+		</style>
+		<div class="row">
+			<div class="col-md-8">
+				<h2 id="body_title">部分终端上线指令<a title="1、增加两个视频设备；2、增加部分司机卡写卡；3、增加“注意”提醒；4、调整细节；"><font size="3">----20190906更新</font></a></h2>
+			</div>
+		</div>
+		<div class="container-fluid">
+
+			<a id="self_add">示例参数</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="self">清除参数</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" download="部分终端上线指令_20190906.html">下载html</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="make_qrcode" href = "javascript:void(0)">扫码访问</a>
+			<div id="light" class="white_content">
+				<a id="close_a" href = "javascript:void(0)" style="display:block;text-align:right; float:right;">关闭</a>
+				<div id="qrcode_div"></div>
+			</div> 
+			<div id="fade" class="black_overlay"></div>
+			
+			<hr class="pc"/>
+			<div id="smart_div" class="pc">
+				<label for="smart_input">智能填充：</label>
+				<input rows="1" id="smart_input" autofocus="autofocus" placeholder="只管往这Ctrl+V      【车牌号、车架号、7位ID号、设备卡号】。（也可填写后点击“填充”或“回车”）" style="width:50%;height:30px" maxlength=80></input>
+				<label id="smart_lbl" style="color:red">0位</label>
+				<button id='smart_btn' >🔍填充</button>
+			</div>			
+			<hr class="pc"/>
+			<div class="row"><!--填写区开始-->
+				<div><!--第一行-->
+					<div class="col-md-2">
+						<label for="device_type">设备类型:</label>
+						<select class="form-control" id='device_type'>
+							<optgroup label="定位设备">
+							<option>博实结 BSJ-A6BD</option>
+							<option>首航通信 SF110-GB</option>
+							<option>苏北 TF-A6B</option>						
+							<option>盛源行 H950X4</option>					
+							<option>华宝 HB-R03GBD08</option>
+							<option>兆达 ZD-R03B</option>
+							<option>航天智科 HT-310</option>
+							<option>厦门雅讯 GK-110R6</option>
+							<option>厦门雅讯 GK-110R7</option>
+							<option>法莱茵 F500</option>
+							<option>罗思韦尔 R-XJ005R</option>
+							<option>启明 DRT3110</option>
+							<optgroup label="视频设备">
+							<option>博实结 BSJ-GF03</option>
+							<option>上海通立 MR9804</option>
+							<option>有为 K7-G4</option>
+						</select>
+					</div>
+					<div class="col-md-2">
+						<label for="province_id">省域 ID:</label>
+						<select class="form-control" id="province_id">
+							<option>广西 45</option>
+						</select>
+					</div>
+					<div class="col-md-2">
+						<label for="city_id">市域县域 ID:</label>
+						<select class="form-control" id="city_id">
+							<optgroup label="玉林市">
+							<option>玉州区 0902</option>
+							<option>北流市 0981</option>
+							<option>兴业县 0924</option>
+							<option>容县 0921</option>
+							<option>陆川县 0922</option>
+							<option>博白县 0923</option>
+							<optgroup label="梧州市">
+							<option>万秀区 0403</option>
+							<option>蝶山区 0404</option>
+							<option>长洲区 0405</option>
+							<option>龙圩区 0406</option>
+							<option>苍梧县 0421</option>
+							<option>藤县 0422</option>
+							<option>蒙山县 0423</option>
+							<option>岑溪市 0481</option>
+							<optgroup label="桂林市">
+							<option>秀峰区 0302</option>
+							<option>叠彩区 0303</option>
+							<option>象山区 0304</option>
+							<option>七星区 0305</option>
+							<option>雁山区 0311</option>
+							<option>阳朔县 0321</option>
+							<option>临桂县 0322</option>
+							<option>灵川县 0323</option>
+							<option>全州县 0324</option>
+							<option>兴安县 0325</option>
+							<option>永福县 0326</option>
+							<option>灌阳县 0327</option>
+							<option>龙胜各族自治县 0328</option>
+							<option>资源县 0329</option>
+							<option>平乐县 0330</option>
+							<option>荔蒲县 0331</option>
+							<option>恭城瑶族自治县 0332</option>
+							<optgroup label="崇左市">
+							<option>江州区 1402</option>
+							<option>扶绥县 1421</option>
+							<option>宁明县 1422</option>
+							<option>龙州县 1423</option>
+							<option>大新县 1424</option>
+							<option>天等县 1425</option>
+							<option>凭祥市 1481</option>
+							<optgroup label="河池市">
+							<option>市辖区 1201</option>
+							<option>东兰县 1224</option>
+							<option>凤山县 1223</option>
+							<option>金城江区 1202</option>
+							<option>南丹县 1221</option>
+							<option>天峨县 1222</option>
+							<option>宜州市 1281</option>
+							<optgroup label="防城港市">
+							<option>市辖区 0601</option>
+							<option>港口区 0602</option>
+							<option>防城区 0603</option>			
+							<option>上思县 0621</option>
+							<option>东兴市 0681</option>
+							<optgroup label="柳州市">
+							<option>城中区 0202</option>
+							<option>柳北区 0205</option>
+							<option>鱼峰区 0203</option>
+							<option>柳南区 0204</option>
+							<option>柳城县 0222</option>
+							<option>柳江县 0221</option>
+							<option>鹿寨县 0223</option>
+							<option>融安县 0224</option>
+							<optgroup label="南宁市">
+							<option>兴宁区 0102</option>
+							<option>青秀区 0103</option>
+							<option>江南区 0105</option>
+							<option>西乡塘区 0107</option>
+							<option>良庆区 0108</option>
+							<option>邕宁区 0109</option>
+							<option>武鸣区 0110</option>
+							<option>隆安县 0123</option>	
+							<option>马山县 0124</option>
+							<option>上林县 0125</option>
+							<option>宾阳县 0126</option>
+							<option>横县 0127</option>						
+						</select>
+					</div>
+					
+					<div class="col-md-2">
+						<label for="double_ip">双IP设置:</label>
+						<select class="form-control" id="double_ip">
+							<option>无</option>
+							<option>博实结243</option>
+							<option>博实结248</option>
+							<option>通天星172</option>
+						</select>
+					</div>
+				</div>
+				<div style="clear:both;"><!--第二行-->
+					<div class="col-md-2">
+						<label for="nums">车牌号码:</label>
+						<textarea class="form-control nums" rows="1" id="nums" maxlength="7"></textarea>
+					</div>
+					<div class="col-md-2">
+						<label for="vels">车架号:</label>
+						<textarea type="text" class="form-control vels" rows="1" id="vels" maxlength="17"></textarea>
+					</div>				
+					<div class="col-md-2">
+						<label for="ids">7位ID:</label>
+						<textarea class="form-control ids" rows="1" id="ids" maxlength="7"></textarea>
+					</div>
+					<div class="col-md-2">
+						<label for="sims">设备卡号:</label>
+						<textarea class="form-control sims" rows="1" id="sims" maxlength="11"></textarea>
+					</div>
+				</div>
+			</div><!--填写区结束-->	
+			<div class="row col-md-8" id="sms_area"><!--展示区-->
+				<h3 id="sms_title">指令内容</h3>
+				<div class="col-md-2" id="sms">
+					<table class='table table-bordered table-hover'><tr><th>功能说明</th><td>指令内容</td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></table>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="pc">	
+			<a href="../index.html" title="首页" target="_blank" style="color:#0026ff">首页</a>&nbsp|&nbsp
+			<a href="../test/sms.html" title="上线指令" target="_blank" style="color:#0026ff">上线指令</a>&nbsp|&nbsp
+			<a href="http://www.gghypt.net/" title="货运平台官网" target="_blank" style="color:#0026ff">货运平台官网</a>&nbsp|&nbsp
+			<a href="http://x.x0775.com/" title="X过检平台" target="_blank" style="color:#0026ff">X过检平台</a>&nbsp|&nbsp
+			<a href="http://y.x0775.com:88/" title="Y视频平台" target="_blank" style="color:#0026ff">Y视频平台</a>&nbsp|&nbsp
+			<a href="http://g.x0775.com/" title="G双防平台" target="_blank" style="color:#0026ff">G双防平台</a>&nbsp|&nbsp
+			<a href="http://cmp.zdm2m.com/" title="中点物连平台" target="_blank" style="color:#0026ff">中点物连平台</a>&nbsp|&nbsp
+			<a href="http://218.21.92.34:9080/outbound/index.php/Public/login" title="CC呼叫中心" target="_blank" style="color:#0026ff">CC呼叫中心</a>&nbsp|&nbsp
+		</div>	
+		<div class="row">
+			<div class="pc">
+				<h4><small>建议使用<strong>谷歌</strong>或<strong>火狐</strong>浏览器打开，刷新请使用ctrl+F5</small></h4>
+				<h4><small>360极速、360安全、搜狗等国产浏览器，注意使用<strong>极速模式</strong></small></h4>
+				<h4><small><font color="#FF0000"><font size="4">星讯公司所有，仅供内部交流使用</font></font></small></h4>
+			</div>
+		</div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+        <script src="../js/qrcode.min.js"></script>
+		
+		<script type="text/javascript">//生成网址二维码
+			//new QRCode(document.getElementById("qrcode_div"), "http://www.runoob.com");  // 设置要生成二维码的链接
+			var QR_url = window.location.href;
+			var qrcode = new QRCode("qrcode_div", {
+				text: QR_url,
+				width: 256,
+				height: 256,
+				colorDark : "#000000",
+				colorLight : "#ffffff",
+				correctLevel : QRCode.CorrectLevel.H
+			});
+			//qrcode.clear(); // 清除代码
+			//qrcode.makeCode("http://www.baidu.com"); // 生成另外一个二维码
+			document.getElementById("make_qrcode").addEventListener("click", make_qrcode);//注册click事件
+			document.getElementById("close_a").addEventListener("click", close_QRcodeDIV);//注册click事件
+			function make_qrcode(){
+				document.getElementById('light').style.display='block';
+				document.getElementById('fade').style.display='block';
+			} 
+			function close_QRcodeDIV(){
+				document.getElementById('light').style.display='none';
+				document.getElementById('fade').style.display='none';
+			}			
+		</script>
+		<script type="text/javascript">
+			//var sms_str="";
+			var clipboard = new ClipboardJS('#copy_btn');
+			clipboard.on('success', function(e) {
+				console.log(e);
+				//sms_str=e.text;
+			});
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+		</script>
+		<script type="text/javascript">
+			//新增一个去空格的方法
+			String.prototype.NoSpace = function() 
+			{ 
+				return this.replace(/\s+/g, ""); 
+			}
+			function smart_fill(){
+				var inptu_value = $("#smart_input")[0].value.NoSpace().toLocaleUpperCase();
+				$("#smart_input")[0].value = inptu_value;
+				var input_length = inptu_value.length;
+				switch (input_length){
+					case 6:
+						if(inptu_value.substr(0,1)==="K"){//判断开头是否为K
+							$("#nums").text("桂"+inptu_value);//补上“桂”，当作车牌填充
+						}else{
+							console.log("无法分析。");
+						}
+						break;				
+					case 7:
+						if(escape(inptu_value).indexOf("%u")<0){//判断是否有中文
+							//true，没有中文
+							if( isNaN(inptu_value)){
+								//true,不是数字
+								console.log("无法分析。");
+							}else{
+								//true,是数字,当作7位ID填充
+								$("#ids").text(inptu_value);
+							}
+						}else{
+						//false,有中文
+							$("#nums").text("桂"+inptu_value.substr(1,6));//当作车牌填充
+						}
+						break;						
+					case 17:
+						$("#vels").text(inptu_value);
+						break;
+					case 11:
+						$("#sims").text(inptu_value);
+						break;
+					default:
+						console.log("无法分析。");
+				}
+				$("#smart_lbl")[0].innerHTML = input_length+"位";
+				make_sms();
+			}
+			document.getElementById("smart_input").addEventListener("paste", smart_fill_onpaste);//注册onpaste事件
+			$('#smart_input').bind('keypress',function(event){ //注册keypress事件
+				if(event.keyCode == "13")
+				{  
+					smart_fill_onpaste();  
+				}
+			});	
+			document.getElementById("smart_btn").addEventListener("click", smart_fill);//注册click事件			
+			function smart_fill_onpaste(){
+				console.log("smart_fill_onpaste");
+				$('#smart_input').focus().select();
+				var timeout = setTimeout(smart_fill,100);
+			} 
+		</script>		
+        <script type="text/javascript">			
+			//【设备类型】发生改变执行的操作
+			$("#device_type").change(function(){
+				console.log("device_type.change");
+				device_type = $("#device_type").val().split(" ")[1];
+				write_html(device_type);//生成对应型号的页面
+				$("#sms").html('');//清空sms的内容
+				make_sms();
+			});
+			
+			function content_change() {
+				console.log("content_change");
+				make_sms();
+			}	
+
+			write_html("BSJ-A6BD");//默认型号初始化
+			make_sms();//默认型号生成指令
+			$("#self")[0].href =location.pathname;
+			var add_str = "?num=桂K12345&vel=LGGX4DF57AL532684&id=1234567&sim=13012345678";
+			$("#self_add")[0].href = location.pathname+add_str;		
+			
+			//$("select, textarea").on("change", content_change);//注册事件
+			$("select, textarea").on("input", content_change);//注册事件
+				
+			//根据【设备类型】初始化页面
+			function write_html(device_type) {
+				switch (device_type) {
+					case "BSJ-A6BD":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].options[0].selected=true;
+						make_sms();			
+						$("#vels")[0].parentNode.style.visibility="";
+						sms_title = "【博实结 BSJ-A6BD】指令内容：";
+						break;
+					case "SF110-GB":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="hidden";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";						
+						sms_title = "【首航通信 SF110-GB】指令内容：";
+						break;			
+					case "TF-A6B":
+						$("#city_id")[0].parentNode.style.visibility="hidden";
+						$("#ids")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";						
+						sms_title = "【苏北 TF-A6B】指令内容：";
+						break;
+                    case "H950X4":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="hidden";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";
+						sms_title = "【盛源行 H950X4】指令内容：";
+						break;
+					case "HB-R03GBD08":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="hidden";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";
+						sms_title = "【华宝 HB-R03GBD08】指令内容：";
+						break;
+					case "ZD-R03B":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="hidden";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";
+						sms_title = "【兆达 ZD-R03B】指令内容：";
+						break;						
+					case "HT-310":
+						$("#city_id")[0].parentNode.style.visibility="hidden";
+						$("#ids")[0].parentNode.style.visibility="hidden";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";
+						sms_title = "【航天智科 HT-310】指令内容：";
+						break;
+					case "GK-110R6":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="hidden";						
+						sms_title = "【厦门雅讯 GK-110R6】指令内容：";
+						break;
+					case "GK-110R7":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="";						
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="hidden";						
+						sms_title = "【厦门雅讯 GK-110R7】指令内容：";
+						break;
+					case "F500":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";						
+						sms_title = "【法莱茵 F500】指令内容：";
+						break;
+					case "R-XJ005R":
+						$("#city_id")[0].parentNode.style.visibility="hidden";
+						//$("#city_id")[0].disabled=true;
+						$("#ids")[0].parentNode.style.visibility="hidden";
+						//$("#ids")[0].disabled=true;
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						//$("#double_ip")[0].disabled=true;
+						$("#vels")[0].parentNode.style.visibility="";						
+						sms_title = "【罗思韦尔 R-XJ005R】指令内容：";
+						break;					
+					case "DRT3110":
+						$("#city_id")[0].parentNode.style.visibility="hidden";
+						$("#ids")[0].parentNode.style.visibility="";						
+						$("#double_ip")[0].parentNode.style.visibility="hidden";
+						$("#vels")[0].parentNode.style.visibility="";						
+						sms_title = "【启明 DRT3110】指令内容：";
+						break;
+					//--视频机---------------------------------------------------------------
+					case "BSJ-GF03":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].options[3].selected=true;
+						make_sms();
+						$("#vels")[0].parentNode.style.visibility="";
+						sms_title = "【博实结 BSJ-GF03】指令内容：";
+						break;
+					case "MR9804":
+						$("#city_id")[0].parentNode.style.visibility="";
+						$("#ids")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].parentNode.style.visibility="";
+						$("#double_ip")[0].options[3].selected=true;
+						make_sms();
+						$("#vels")[0].parentNode.style.visibility="";
+						sms_title = "【上海通立 MR9804】指令内容：";
+						break;
+					default:
+						sms_title = "指令内容：";
+				}
+				//$("#sms_title").html(sms_title);
+			};
+			
+			function make_sms(){
+				console.log("make_sms");
+				device_type = $("#device_type").val().split(" ")[1];//取得设备类型（英文部分）
+				
+				province = $("#province_id").val().split(" ")[0];//取得省份（中文部分）
+				province_id = $("#province_id").val().split(" ")[1];//取得省份id
+				
+				city = $("#city_id").val().split(" ")[0];//取得城市（中文部分）
+				city_id = $("#city_id").val().split(" ")[1];//取得城市id
+				
+				double_ip_setting = $("#double_ip").val();//双IP设置				
+				switch(double_ip_setting) {
+					case "无":
+						double_ip = "T:000.000.000.000,0000"
+						break;
+					case "博实结243":
+						double_ip = "T:222.217.240.243,7788"
+						break;
+					case "博实结248":
+						double_ip = "T:222.217.240.248,7788"
+						break;
+					case "通天星172":
+						double_ip = "T:222.217.240.172,6608"
+						break;
+					default:
+						double_ip = "T:000.000.000.000,0000"
+				}
+				nums = $("#nums").val().NoSpace().split("\n");//车牌号，数组
+				vels = $("#vels").val().NoSpace().split("\n");//车架号，数组
+				ids = $("#ids").val().NoSpace().split("\n");//7位ID，数组
+				sims = $("#sims").val().NoSpace().split("\n");//设备卡号，数组
+
+				content = "";
+				//style='word-break:break-all;'td内容换行设置
+				content += "<table class='table table-bordered table-hover'>";//table开始
+				switch(device_type) {
+					//博实结
+					case "BSJ-A6BD":
+						for(i = 0; i < 1; i++) {
+							cityId_span = "<font class='city_id'>"+city_id+"</font>";//市域或县域ID
+							plateNo = "20"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[0]+"</font>";//车架号
+							ids_span = "<font class='ids'>"+ids[0]+"</font>";//7位设备ID
+							sims_span = "<font class='sims'>"+sims[0]+"</font>";//11位设备卡号
+							
+							
+							content += "<tr><th>货运上线</th><td><span id='sms_cmd'>&lt;SPBSJ*P:BSJINI*N:"+sims_span+"*G:jt1.gghypt.net:7008*"+double_ip+"*V:"+province_id+","+cityId_span+",,,"+ids_span+",2,"+plateNo_span+",,"+vels_span+",1&gt;</span></td>";
+							content += "<td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr></table>";
+							
+							content +=`<a href="/test/bsj_driver_card.html" title="博实结司机卡指令" target="_blank" style="color:#0026ff">博实结-司机卡指令</a>`;
+						}
+						break;
+					
+					//首航
+					case "SF110-GB":
+						for(i = 0; i < 1; i++) {
+							cityId_span = "<font class='city_id'>"+city_id+"</font>";//市域或县域ID
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+						
+							content += "<tr><th>查询版本及网络</th><td><span id='sms_cmd0'>*092311#14#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd0'>复制</button></a></td></tr>";
+							content += "<tr><th>查询终端状态</th><td><span id='sms_cmd'>*092311#17#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							<!-- content += "<tr><th>恢复出厂</th><td><span id='sms_cmd2'>*092311#22#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>"; 有些人的经常乱发，先注释掉-->
+							content += "<tr><th>设置货运地址：</th><td><span id='sms_cmd3'>*092311#62*0*jt1.gghypt.net**7008*CMNET*T*"+sims_span+"*#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr>";
+							content += "<tr><th>货运信息配置：</th><td><span id='sms_cmd4'>*092311#61*0*"+sims_span+"**"+plateNo_span+"*"+vels_span+"**"+province_id+"*"+cityId_span+"#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd4'>复制</button></a></td></tr></table>";
+						}
+						break;					
+					
+					//苏北
+					case "TF-A6B":
+						for(i = 0; i < 1; i++) {
+							var num_ASCII = "B9F0";
+							nums[i]=nums[i].toLocaleUpperCase();
+							plateNo="45"+nums[i].substr(1,6);
+							for(var j=0;j<6;j++){
+								num_ASCII += nums[0].substr(1,6).charCodeAt(j).toString(16);
+							}						
+							plateNo_span0 = "<font class='nums'>"+plateNo+"</font>";
+							plateNo_span = "<font class='nums'>"+num_ASCII.toLocaleUpperCase()+"</font>";
+							ids_span = "<font class='ids'>"+ids[i]+"</font>";
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";					
+							
+							content += "<tr><th>上线指令-文档</th>";
+							content += "<td><span id='sms_cmd'>&lt;SPTF*P:TFGPS*Y:jt1.gghypt.net*d:7008*t:000.000.000.000,0*N:"+sims_span+"*I:"+ids_span+"*A:CMNET*c:"+plateNo_span0+"*v:"+vels_span+"*h:0&gt;</span></td>";
+							content += "<td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";	
+							content += "<tr><th>上线指令-工具</th>";
+							content += "<td><span id='sms_cmd2'>&lt;SPTF*P:TFGPS*Y:jt1.gghypt.net*b:000.000.000.000*y:"+plateNo_span+"*d:7008*x:2*N:"+sims_span+"*A:CMNET*I:"+ids_span+"*Z:1*h:0&gt;</span></td>";
+							content += "<td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr></table>";
+						}
+						break;
+					
+					//盛源行
+					case "H950X4":
+						for(i = 0; i < 1; i++) {
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>查询状态</th><td><span id='sms_cmd'>#000000,RDST</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>货运信息配置1：</th><td><span id='sms_cmd2'>#000000,STVC:"+plateNo_span+"</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							content += "<tr><th>货运信息配置2：</th><td><span id='sms_cmd3'>#000000,IDST:"+sims_span+";#000000,STVI:"+vels_span+";#000000,STGP;#000000,STMA:110</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr></table>";
+						}
+						break;
+						
+					//华宝
+					case "HB-R03GBD08":	
+						for(i = 0; i < 1; i++) {
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>查询状态</th><td><span id='sms_cmd'>#000000,RDST</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>恢复出厂</th><td><span id='sms_cmd1'>#000000,INIT:INIT-SYS</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd1'>复制</button></a></td></tr>";
+							content += "<tr><th>货运信息配置1：</th><td><span id='sms_cmd2'>#000000,STVC:"+plateNo_span+"</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							content += "<tr><th>货运信息配置2：</th><td><span id='sms_cmd3'>#000000,IDST:"+sims_span+";#000000,STVI:"+vels_span+";#000000,STGP;#000000,STMA:110;#000000,STTS:IP,220.231.128.152,0;#000000,STIN:30</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr></table>";
+						}
+						break;
+					//兆达
+					case "ZD-R03B":
+						for(i = 0; i < 1; i++) {
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>查询状态</th><td><span id='sms_cmd'>#000000,RDST</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>货运信息配置1：</th><td><span id='sms_cmd2'>#000000,STVC:"+plateNo_span+"</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							content += "<tr><th>货运信息配置2：</th><td><span id='sms_cmd3'>#000000,IDST:"+sims_span+";#000000,STVI:"+vels_span+";#000000,STGP;#000000,STMA:110</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr></table>";
+						}
+						break;					
+					//航天智科	
+					case "HT-310":
+						for(i = 0; i < 1; i++) {
+							plateNo = "20"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content +="<tr><th>查询状态</th><td>";
+							content += "<span id='sms_cmd'>CAR:\"HT31\","+plateNo_span+'","01","'+vels_span+'","0","'+sims_span+'","02","02"</span>';
+							content +="</td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></table>";
+						}
+						break;
+					//厦门雅讯R6
+					case "GK-110R6":
+						for(i = 0; i < 1; i++) {
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							cityId_span = "<font class='city_id'>"+city_id+"</font>";//市域或县域ID
+							ids_span = "<font class='ids'>"+ids[0]+"</font>";//7位设备ID
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>查询短信</th><td><span id='sms_cmd'>99123456QXSX</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>设置终端手机号</th><td><span id='sms_cmd2'>99123456BJHM"+sims_span+"</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							content += "<tr><th>设置货运平台网址</th><td><span id='sms_cmd3'>99123456PTCPCMNET,jt1.gghypt.net,7008</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr>";
+							content += "<tr><th>设置货运平台详细信息</th><td><span id='sms_cmd4'>99123456sreg"+province_id+","+cityId_span+",70118,,"+ids_span+",2,"+plateNo_span+"</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd4'>复制</button></a></td></tr></table>";
+						}
+						break;
+					//厦门雅讯R7
+					case "GK-110R7":
+						for(i = 0; i < 1; i++) {
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							cityId_span = "<font class='city_id'>"+city_id+"</font>";//市域或县域ID
+							ids_span = "<font class='ids'>"+ids[0]+"</font>";//7位设备ID
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>查询短信</th><td><span id='sms_cmd'>99123456QREG</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>设置终端手机号</th><td><span id='sms_cmd2'>99123456BJHM"+sims_span+"</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							content += "<tr><th>设置货运平台网址</th><td><span id='sms_cmd3'>99123456PTCPCMNET,jt1.gghypt.net,7008</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr>";
+							content += "<tr><th>设置货运平台详细信息</th><td><span id='sms_cmd4'>99123456SYXH"+province_id+","+cityId_span+",70118,,"+ids_span+",2,"+plateNo_span+"</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd4'>复制</button></a></td></tr></table>";
+						}						
+						break;
+					//法莱茵
+					case "F500":						
+						for(i = 0; i < 1; i++) {
+							cityId_span = "<font class='city_id'>"+city_id+"</font>";//市域或县域ID
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							ids_span = "<font class='ids'>"+ids[i]+"</font>";//7位设备ID
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>查询状态</th><td><span id='sms_cmd'>AS2013*F10#C#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>设置车牌：</th><td><span id='sms_cmd2'>AS2013*F10#*2,"+plateNo_span+"#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							content += "<tr><th>设置终端型号代码：</th><td><span id='sms_cmd3'>AS2013*F10#*0,70961#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr>";
+							content += "<tr><th>设置货运地址：</th><td><span id='sms_cmd4'>AS2013*F10#1,jt1.gghypt.net,7008,1,jt2.gghypt.net,7008#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd4'>复制</button></a></td></tr>";
+							content +="<tr><th>设置归属地：</th><td><span id='sms_cmd5'>AS2013*F10#K,"+province_id+","+cityId_span+",#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd5'>复制</button></a></td></tr>";
+							content += "<tr><th>设置车辆信息：</th><td><span id='sms_cmd6'>AS2013*F10#2,"+sims_span+","+ids_span+","+vels_span+"#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd6'>复制</button></a></td></tr></table>";
+						}
+						break;
+					//罗思韦尔
+					case "R-XJ005R":						
+						for(i = 0; i < 1; i++) {
+							plateNo = "15"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>设置手机号</th><td><span id='sms_cmd'>>Sim=0"+sims_span+";</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>设置货运地址：</th><td><span id='sms_cmd2'>>Ip=jt1.gghypt.net;>Port=07008;>Rule=04;>BIp=jt2.gghypt.net;>BPort=07008;>BRule=04;</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							content += "<tr><th>设置车架号：</th><td><span id='sms_cmd3'>>VinID="+vels_span+";</span'></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr>";
+							content += "<tr><th>设置车牌号：</th><td><span id='sms_cmd4'>>VinCP="+plateNo_span+";</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd4'>复制</button></a></td></tr></div></div>";
+						}
+						break;						
+					//启明	
+					case "DRT3110":						
+						for(i = 0; i < 1; i++) {
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[i]+"</font>";//车架号
+							ids_span = "<font class='ids'>"+ids[i]+"</font>";//7位设备ID
+							sims_span = "<font class='sims'>"+sims[i]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>短信指令1</th><td><span id='sms_cmd'>$C/1234/"+sims_span+"0/07008/2/"+ids_span+"/jt1.gghypt.net/#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							content += "<tr><th>短信指令2</th><td><span id='sms_cmd2'>$3/1234/"+plateNo_span+"/"+vels_span+"/#</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr></table>";
+						}
+						break;
+					//博实结 BSJ-GF03
+					case "BSJ-GF03":
+						for(i = 0; i < 1; i++) {
+							cityId_span = "<font class='city_id'>"+city_id+"</font>";//市域或县域ID
+							plateNo = "20"+nums[0].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[0]+"</font>";//车架号
+							ids_span = "<font class='ids'>"+ids[0]+"</font>";//7位设备ID
+							sims_span = "<font class='sims'>"+sims[0]+"</font>";//11位设备卡号
+							
+							content += "<tr><th>过检上线</th><td><span id='sms_cmd'>&lt;SPBSJ*P:BSJINI*N:"+sims_span+"*D:222.217.240.243:8809*"+double_ip+"*V:"+province_id+","+cityId_span+",,,"+ids_span+",2,"+plateNo_span+",,"+vels_span+",1&gt;</span></td>";
+							content += "<td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr></table>";
+							
+							content +="<div><span style='color:red;font-weight:bold'>注意：该指令IP地址指向808过检平台，以及通天星视频平台。</span></div>";
+							
+							content +=`<a href="/test/bsj_driver_card.html" title="博实结司机卡指令" target="_blank" style="color:#0026ff">博实结-司机卡指令</a>`;
+						}
+						break;
+					//上海通立 MR9804
+					case "MR9804":
+						for(i = 0; i < 1; i++) {
+							cityId_span = "<font class='city_id'>"+city_id+"</font>";//市域或县域ID
+							plateNo = "桂"+nums[i].substr(1,6);
+							plateNo_span = "<font class='nums'>"+plateNo+"</font>";//车牌号码
+							vels_span = "<font class='vels'>"+vels[0]+"</font>";//车架号
+							ids_span = "<font class='ids'>"+ids[0]+"</font>";//7位设备ID
+							sims_span = "<font class='sims'>"+sims[0]+"</font>";//11位设备卡号
+										
+							var testcmd = `"sms:${sims[0]}?body=$JTSVR,222.217.240.243,8809;$JTSVR2,222.217.240.172,6608,1;$BUS,${ids[0]},${sims[0]},${plateNo},黄色,${city_id},"`;
+							
+							content += `<tr><th>综合指令</th><td><span id='sms_cmd4'>$JTSVR,222.217.240.243,8809;$JTSVR2,222.217.240.172,6608,1;$BUS,${ids_span},${sims_span},${plateNo_span},黄色,${cityId_span},</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd4'>复制</button></a>&nbsp;<button id='send_btn' class="phone"><a href=${testcmd}>短信</a></button></td></tr>`;
+							
+							content += "<tr><th>设置部标主服务器</th><td><span id='sms_cmd'>$JTSVR,222.217.240.243,8809</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></td></tr>";
+							
+							content += "<tr><th>设置部标备份服务器</th><td><span id='sms_cmd2'>$JTSVR2,222.217.240.172,6608,1</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd2'>复制</button></a></td></tr>";
+							
+							content += `<tr><th>设置车辆信息</th><td><span id='sms_cmd3'>$BUS,${ids_span},${sims_span},${plateNo_span},黄色,${cityId_span},</span></td><td><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd3'>复制</button></a></td></tr>`;
+							content += "</table>";
+	
+							content +="<div class='pc'><span style='color:red;font-weight:bold'>注意：通立视频机，因对短信指令支持不完善，以上指令仅供参考（或上线后微调）。设备上线设请以手动设置为准。</span></div>";
+							
+							content +=`<a href="/test/tl_driver_card.html" title="通立视频机司机卡指令" target="_blank" style="color:#0026ff">通立-司机卡指令</a>`;
+						}					
+						break;						
+					default:
+						content = "<div><span style='color:red;'>该设备型号未编写指令生成规则，请参考文档手动编写指令，如有需要请联系管理员添加。</span></div>";
+						//alert(device_type+"该设备型号未编写指令生成规则，请参考文档手动编写指令，如有需要请联系管理员添加。");
+						console.log("456");
+				}//--switch end
+				sms_title = `【${device_type}】指令内容：`;
+				$("#sms_title").html(sms_title);
+				$("#sms").html(content);			
+			}
+			//--function make_sms()end		
+		</script>
+		
+		<script type="text/javascript">
+			UrlParm = function() { // url参数    
+			  var data, index;    
+			  (function init() {    
+				data = [];    
+				index = {};    
+				var u = window.location.search.substr(1);    
+				if (u != '') {    
+				  var parms = decodeURIComponent(u).split('&');    
+				  for (var i = 0, len = parms.length; i < len; i++) {    
+					if (parms[i] != '') {    
+					  var p = parms[i].split("=");    
+					  if (p.length == 1 || (p.length == 2 && p[1] == '')) {// p | p=    
+						data.push(['']);    
+						index[p[0]] = data.length - 1;    
+					  } else if (typeof(p[0]) == 'undefined' || p[0] == '') { // =c | =    
+						data[0] = [p[1]];    
+					  } else if (typeof(index[p[0]]) == 'undefined') { // c=aaa    
+						data.push([p[1]]);    
+						index[p[0]] = data.length - 1;    
+					  } else {// c=aaa    
+						data[index[p[0]]].push(p[1]);    
+					  }    
+					}    
+				  }    
+				}    
+			  })();    
+			  return {    
+				// 获得参数,类似request.getParameter()    
+				parm : function(o) { // o: 参数名或者参数次序    
+				  try {    
+					return (typeof(o) == 'number' ? data[o][0] : data[index[o]][0]);    
+				  } catch (e) {    
+				  }    
+				},    
+				//获得参数组, 类似request.getParameterValues()    
+				parmValues : function(o) { //  o: 参数名或者参数次序    
+				  try {    
+					return (typeof(o) == 'number' ? data[o] : data[index[o]]);    
+				  } catch (e) {}    
+				},    
+				//是否含有parmName参数    
+				hasParm : function(parmName) {    
+				  return typeof(parmName) == 'string' ? typeof(index[parmName]) != 'undefined' : false;    
+				},    
+				// 获得参数Map ,类似request.getParameterMap()    
+				parmMap : function() {    
+				  var map = {};    
+				  try {    
+					for (var p in index) {  map[p] = data[index[p]];  }    
+				  } catch (e) {}    
+				  return map;    
+				}    
+			  }    
+			}();
+			
+			//写入传入的参数
+			//?num=桂K12345&vel=12345678901234567&id=1234567&sim=13012345678&sim=13012345678
+			$("#nums").text(UrlParm.parm("num"));
+			$("#vels").text(UrlParm.parm("vel"));
+			$("#ids").text(UrlParm.parm("id"));
+			$("#sims").text(UrlParm.parm("sim"));
+			make_sms();
+		</script>
+	</body>
+</html>
