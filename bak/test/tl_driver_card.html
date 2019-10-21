@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>通立司机卡写卡指令</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?6fc846ea74bd6cad3eae7a682d2abff2";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>		
+	</head>
+	<body>
+		<style>
+			 h2,h4{text-align:center;} 
+			textarea{text-transform:uppercase;}
+			th,td{white-space:nowrap}
+			.vels{color:blue;font-weight:bold}
+			.nums,.driverName,.FZJGs{color:red;font-weight:bold}
+			.engineId{color:magenta;font-weight:bold}	.licenseId,.CY_licenseId,.driverCode{color:green;font-weight:bold}
+			.sexs,.ranks{}
+			#smart_input{
+				background-color:#C1DBFA;
+				border:1px solid;
+				text-align:center;
+			}		
+			#sms{width:100%}		
+
+		</style>
+		<div class="row">
+			<div class="">
+				<h2 id="body_title">通立MR9804司机卡写卡指令<a title=""><font size="3">----20190905更新</font></a></h2>
+			</div>
+		</div>
+		<div class="container-fluid">
+
+			<a id="self_add" >示例参数</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="self">清除参数</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" download="通立司机卡写卡指令20190905.html">下载html</a>
+			<br/>
+			<div class="row"><!-- 中间操作区域-->
+				<div><!-- 第一行 -->
+					<div class="col-md-2">
+						<label for="vels">车架号:</label>
+						<textarea type="text" class="form-control vels" rows="1" id="vels" maxlength="17" onblur="upperCase()"></textarea>
+					</div>
+					<div class="col-md-2">
+						<label for="nums" >车牌号码:</label>
+						<textarea class="form-control nums" rows="1" id="nums" maxlength="7" onblur="upperCase()"></textarea>
+					</div>
+					<div class="col-md-2">
+						<label for="nums_class">车牌分类:</label>
+						<select class="form-control" id="nums_class" onblur="upperCase()">
+							<option>危险品车</option>
+							<option>客运车</option>
+							<option>普通货车</option>
+							<option>大型货车</option>
+							<option>半挂车</option>
+						</select>
+					</div>
+					
+					<div class="col-md-2">
+						<label for="engineId">发动机号:</label>
+						<textarea class="form-control engineId" rows="1" id="engineId" maxlength="20" onblur="upperCase()"></textarea>
+					</div>
+				</div>
+				<div style="clear:both;"><!-- 第二行 -->
+					<div class="col-md-2">
+						<label for="licenseId">驾驶证号码:</label>
+						<textarea class="form-control licenseId" rows="1" id="licenseId" maxlength="18"  onblur="upperCase()"></textarea>
+					</div>			
+					<div class="col-md-2">
+						<label for="licenseDate">驾驶证有效期:</label>
+						<textarea class="form-control" rows="1" id="licenseDate" maxlength="18"  onblur="upperCase()"></textarea>
+					</div>
+					<div class="col-md-2">
+						<label for="CY_licenseId">从业资格证号码:</label>
+						<textarea class="form-control CY_licenseId" rows="1" id="CY_licenseId" maxlength="18"  onblur="upperCase()"></textarea>
+					</div>				
+					<div class="col-md-2">
+						<label for="CY_licenseDate">从业资格证有效期:</label>
+						<textarea class="form-control" rows="1" id="CY_licenseDate" maxlength="18"  onblur="upperCase()"></textarea>
+					</div>
+
+				</div>
+				<div style="clear:both;"><!-- 第三行 -->
+					<div class="col-md-2">
+						<label for="driverName">驾驶员姓名:</label>
+						<textarea class="form-control driverName" rows="1" id="driverName" maxlength="10" onblur="upperCase()"></textarea>
+					</div>			
+					<div class="col-md-2">
+						<label for="driverCode">驾驶员代码:</label>
+						<textarea class="form-control driverCode" rows="1" id="driverCode" maxlength="7" onblur="upperCase()"></textarea>
+					</div>
+					<div class="col-md-1">
+						<label for="sexs">性别:</label>
+						<select class="form-control sexs" rows="1" id="sexs" onblur="upperCase()">
+							<option>男</option>
+							<option>女</option>
+						</select>	
+					</div>	
+					<div class="col-md-1">
+						<label for="ranks">星级:</label>
+						<textarea class="form-control ranks" rows="1" id="ranks" maxlength="2" onblur="upperCase()"></textarea>
+					</div>				
+					<div class="col-md-2">
+						<label for="FZJGs">发证机构:</label>
+						<textarea class="form-control FZJGs" rows="1" id="FZJGs" onblur="upperCase()"></textarea>
+					</div>	
+				</div>
+			</div><!--填写区结束-->
+			<div class="row col-md-8" id="sms_area"><!--展示区-->
+				<h3 id="sms_title">司机卡写卡指令：</h3>
+				<div class="col-md-2" id="sms">
+					<table class="table table-bordered table-hover"><tbody><tr><th>功能说明</th><th>指令内容</th><th>操作</th></tr></tbody></table>
+				</div>
+			</div>
+		</div>			
+		<hr />
+		厂家文档：<br/>格式：	&lt;EXTIC,车架号,车牌号,车牌分类,发动机号,驾驶证号码,驾驶证有效期,从业资格证号码,从业资格证有效期,驾驶员姓名,驾驶员代码,性别,星级,发证机构,&gt;		<br/>示例：	&lt;EXTIC,LGAG4DY00J0000000,桂K12345,危险品车,JA6L2J5044,440902190000000000,20-09-10,21-11-12,张三,0000077,男,5,5,淄博市交通运输局,&gt;
+		<hr />
+		<div>	
+			<a href="../index.html" title="首页" target="_blank" style="color:#0026ff">首页</a>&nbsp|&nbsp
+			<a href="../test/sms.html" title="上线指令" target="_blank" style="color:#0026ff">上线指令</a>&nbsp|&nbsp
+			<a href="http://www.gghypt.net/" title="货运平台官网" target="_blank" style="color:#0026ff">货运平台官网</a>&nbsp|&nbsp
+			<a href="http://x.x0775.com/" title="X过检平台" target="_blank" style="color:#0026ff">X过检平台</a>&nbsp|&nbsp
+			<a href="http://y.x0775.com:88/" title="Y视频平台" target="_blank" style="color:#0026ff">Y视频平台</a>&nbsp|&nbsp
+			<a href="http://g.x0775.com/" title="G双防平台" target="_blank" style="color:#0026ff">G双防平台</a>&nbsp|&nbsp
+			<a href="http://cmp.zdm2m.com/" title="中点物连平台" target="_blank" style="color:#0026ff">中点物连平台</a>&nbsp|&nbsp
+			<a href="http://218.21.92.34:9080/outbound/index.php/Public/login" title="CC呼叫中心" target="_blank" style="color:#0026ff">CC呼叫中心</a>&nbsp|&nbsp
+		</div>		
+		<div class="row">
+			<div class="">
+				<h4><small>建议使用<strong>谷歌</strong>或<strong>火狐</strong>浏览器打开，刷新请使用ctrl+F5</small></h4>
+				<h4><small>360极速、360安全、搜狗等国产浏览器，注意使用<strong>极速模式</strong></small></h4>
+				<h4><small><font color="#FF0000"><font size="4">星讯公司所有，仅供内部交流使用</font></font></small></h4>
+			</div>
+		</div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+        
+		<script type="text/javascript">
+			
+			var sms_str="";
+			var clipboard = new ClipboardJS('#copy_btn');
+			clipboard.on('success', function(e) {
+				console.log(e);
+				sms_str=e.text;
+			});
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+		</script>
+		
+		<script type="text/javascript">
+			//新增一个去空格的方法
+			String.prototype.NoSpace = function() 
+			{ 
+				return this.replace(/\s+/g, ""); 
+			}
+		</script>	
+		
+        <script type="text/javascript">		
+			$("select, textarea").on("input", upperCase);//注册事件
+			
+			//输入文本后生成指令
+			function upperCase()
+			{
+				var vels = $("#vels").val().NoSpace();//车架号	
+				var nums = $("#nums").val().NoSpace();//车牌号	
+				var nums_class = $("#nums_class").val();//车牌分类
+				var engineId = $("#engineId").val().NoSpace();//发动机号
+				var licenseId = $("#licenseId").val().NoSpace();//驾驶证号码
+				var licenseDate = $("#licenseDate").val().NoSpace();//驾驶证有效期
+				var CY_licenseId = $("#CY_licenseId").val().NoSpace();//从业资格证号码				
+				var CY_licenseDate = $("#CY_licenseDate").val().NoSpace();//从业资格证有效期
+				var driverName = $("#driverName").val().NoSpace();//驾驶员姓名
+				var driverCode = $("#driverCode").val().NoSpace();//驾驶员代码
+				var sexs = $("#sexs").val().NoSpace();//性别
+				var ranks = $("#ranks").val().NoSpace();//星级
+				var FZJGs = $("#FZJGs").val().NoSpace();//发证机构
+				
+				var driverCard_write_str;//写司机卡文本
+				var copy_btn_html;
+				
+				content = "";
+				content += "<table class='table table-bordered table-hover'>";//表格开始
+				content += "<th>功能说明</th><th>指令内容</th><th>操作</a></th>";//表头
+				
+				driverCard_write_str = `&lt;EXTIC,${vels},${nums},${nums_class},${engineId},${licenseId},${licenseDate},${CY_licenseId},${CY_licenseDate},${driverName},${driverCode},${sexs},${ranks},${ranks},${FZJGs},&gt;`;//通立MR9808写司机卡文本
+				copy_btn_html = "<a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a>";//复制按钮html
+				
+				content +=`<tr><th>通立MR9808写卡</th><td><span id='sms_cmd'>${driverCard_write_str}</span></td><td>${copy_btn_html}</td></tr>`;
+				
+				content +="</table>";//表格结束
+				
+				$("#sms").html(content);//写入		
+			}
+
+				//点击示例参数方法
+				$(document).ready(function(){
+					$('#self').click(function(){location.reload();});				
+
+
+				$("#self_add").click(function(){
+					$("#vels").val("LGAG4DY00J0000000");//车架号	
+					$("#nums").val("桂K12345");//车牌号
+					$("#nums_class").val("危险品车");//车牌分类
+					$("#engineId").val("JA6L2J5044");//发动机号
+					$("#licenseId").val("440902190000000000");//驾驶证号码
+					$("#licenseDate").val("20-09-10");//驾驶证有效期
+					$("#CY_licenseId").val("440902190000000000");//从业资格证号码
+					$("#CY_licenseDate").val("21-11-12");//从业资格证有效期	
+					$("#driverName").val("张三");//驾驶员姓名
+					$("#driverCode").val("0000077");//驾驶员代码
+					$("#sexs").val("男");//性别
+					$("#ranks").val("5");//星级
+					$("#FZJGs").val("淄博市交通运输局");//发证机构
+					upperCase();
+				});
+			});
+			
+		</script>
+		
+	
+	</body>
+</html>

@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>博实结机司机卡写卡指令</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/cerulean/bootstrap.min.css">
+
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?6fc846ea74bd6cad3eae7a682d2abff2";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>		
+	</head>
+	<body>
+		<style>
+			 h1,h2,h3,h4{
+			 width:100%;
+			 text-align:center;} 
+			textarea{text-transform:uppercase;}
+			th,td{white-space:nowrap}
+			.city_id{color:black;font-weight:bold}
+			.nums{color:red;font-weight:bold}
+			.vels{color:blue;font-weight:bold}
+			.ids{color:magenta;font-weight:bold}
+			.sims{color:green;font-weight:bold}	
+			#smart_input{
+				background-color:#C1DBFA;
+				border:1px solid;
+				text-align:center;
+			}			
+			#sms{width:100%}
+
+.div1{
+margin:5px 0 0px 50px;
+
+
+
+
+}
+			.div1 label{
+			float:left;
+			width:30%;
+			text-align:right;
+			vertical-align: middle;
+			
+			}
+			.div1 textarea{
+
+			text-align:left;
+			width:30%;;
+			}
+			.div1 select{
+			
+			width:30%;
+			}
+
+		
+
+		</style>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="">
+					<h2 id="body_title">博实结机司机卡写卡指令<a title=""><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;20190323更新</font></a></h2>
+				</div>
+			</div>
+			<a type="button" id="self_add" >示例参数</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="self">清除参数</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" download="博实结机司机卡写卡指令20190323.html">下载html</a>
+			<!-- <hr />
+			<div>
+				<label for="smart_input">智能填充：</label>
+				<input rows="1" id="smart_input" autofocus="autofocus" placeholder="只管往这Ctrl+V      【车牌号、车架号、7位ID号、设备卡号】。（也可填写后点击“填充”或“回车”）" style="width:50%;height:30px" maxlength=80></input>
+				<label id="smart_lbl" style="color:red">0位</label>
+				<button id='smart_btn' >🔍填充</button>
+			</div>		
+			<hr /> -->	
+			<br/>
+			<div class="row">
+		
+			<div style="clear:both; float:left;width:50%;border:1px solid #000;padding:10px;"  align="center">
+
+ <div  class='div1'  align="left">
+					<label for="code">驾驶员代码:</label>
+					<textarea class="form-control sims" rows="1" id="code" maxlength="7" onblur="upperCase()"></textarea>
+				</div>
+
+	<div  class='div1'  align="left">
+					<label for="licenseId">驾驶证号码:</label>
+					<textarea class="form-control sims" rows="1" id="licenseId" maxlength="18"  onblur="upperCase()"></textarea>
+				</div>
+ <div  class='div1'  align="left">
+					<label for="name">驾驶员姓名:</label>
+					<textarea class="form-control sims" rows="1" id="name" maxlength="10" onblur="upperCase()"></textarea>
+				</div>
+
+
+
+			<div   class='div1' align="left">
+					<label for="vels">车架号:</label>
+					<textarea type="text" class="form-control vels" rows="1" id="vels" maxlength="17" onblur="upperCase()"></textarea>
+				</div>		
+
+
+				<div  class='div1'  align="left">
+					<label for="nums" >车牌号码:</label>
+					<textarea class="form-control nums" rows="1" id="nums" maxlength="12" onblur="upperCase()"></textarea>
+				</div>
+				
+				<div class='div1'  align="left">
+					<label for="nums_class">车牌分类:</label>
+					<select class="form-control" id="nums_class" onblur="upperCase()">
+						<option>危险品车</option>
+						<option>大型货车</option>
+						<option>普通货车</option>
+						<option>客运车</option>
+						<option>半挂车</option>
+					</select>
+				
+				</div>
+				<div  class='div1'  align="left">
+					<label for="engineId">发动机号:</label>
+					<textarea class="form-control ids" rows="1" id="engineId" maxlength="20" onblur="upperCase()"></textarea>
+				</div>
+			
+	           
+			    <div  class='div1'  align="left">
+					<label for="jobId">身份证号码:</label>
+					<textarea class="form-control sims" rows="1" id="jobId" maxlength="20" onblur="upperCase()"></textarea>
+				
+				 
+				 
+			
+				
+			</div>
+			</div>
+			
+			<div  id="sms_area" style="float:right;width:50%;border:1px solid #000; ">
+				<a>(只支持平台下发写卡，不支持短信下发)</a>
+				<h3 id="sms_title">指令内容</h3>
+				
+				<div id="sms">
+			</div>
+				<!-- <div>
+				<button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button>
+				</div> -->
+			</div>
+			
+		</div>
+		<hr />
+		<div class="row">
+			<div class="">
+				<h4><small>建议使用<strong>谷歌</strong>或<strong>火狐</strong>浏览器打开，刷新请使用ctrl+F5</small></h4>
+				<h4><small><font color="#FF0000"><font size="4">星讯公司所有，仅供内部交流使用</font></font></small></h4>
+				
+			</div>
+		</div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+        
+		<script type="text/javascript">
+			var sms_str="";
+			var clipboard = new ClipboardJS('#copy_btn');
+			clipboard.on('success', function(e) {
+				console.log(e);
+				sms_str=e.text;
+			});
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+		</script>
+		<script type="text/javascript">
+			//新增一个去空格的方法
+			String.prototype.NoSpace = function() 
+			{ 
+				return this.replace(/\s+/g, ""); 
+			}
+		</script>		
+        <script type="text/javascript">		
+			//输入文本后生成指令
+				function upperCase()
+				{
+
+
+					
+
+					 var code = $("#code").val().NoSpace();//驾驶员代码 
+					  var licenseId = $("#licenseId").val().NoSpace();//驾驶证号码
+                      var name = $("#name").val().NoSpace();//驾驶员姓名  
+
+							 var vels = $("#vels").val().NoSpace();//车架号，数组
+							 var nums = $("#nums").val().NoSpace();//车牌号，数组
+							 var nums_class = $("#nums_class").val();//车牌分类
+							 var engineId = $("#engineId").val().NoSpace();//发动机号 
+							 var jobId = $("#jobId").val().NoSpace();//身份证证号码 
+							
+							 var code_length=countLength(code);//获取驾驶员代码的字节长度
+                             var name_length=countLength(name);//获取驾驶员姓名的字节长度
+                             var vels_length=  countLength(vels);//获取车架号的字节长度
+                             var nums_length=  countLength(nums);//获取车牌的字节长度
+							 var nums_class_length=  countLength(nums_class);//获取车牌的字节长度
+                             var jobId_length = countLength(jobId);//获取身份证的字节长度
+
+                      //循环给驾驶员代码添加够7位字节,不够补0
+					
+					     for(var i=0;i<(7-code_length);i++){
+							
+							 code=0+code;
+							
+					        }
+
+
+
+
+                       //循环给车架号添加够17位字节，不够补空格
+					     for(var i=0;i<(10-name_length);i++){
+					         name +="&nbsp;"
+					        }
+                        //循环给车架号添加够17位字节，不够补空格
+					     for(var i=0;i<(17-vels_length);i++){
+					         vels +="&nbsp;"
+					        }
+
+
+                      //循环给车牌号添加够12位字节，不够补空格
+					 for(var i=0;i<(12-nums_length);i++){
+					nums +="&nbsp;"
+					      }
+
+						   //循环给车牌分类添加够12位字节，不够补空格
+					 for(var i=0;i<(12- nums_class_length);i++){
+					nums_class +="&nbsp;"
+					      }
+
+						  	   //循环给身份证添加够20位字节，不够补空格
+					 for(var i=0;i<(20- jobId_length);i++){
+					jobId +="&nbsp;"
+					      }  
+                       content = ""
+
+								content += "<div style='border:1px solid #000;high:200px;margin:20px;padding:20px;'>";
+											content += "<span id='sms_cmd'>&lt;EXTBE"+code+","+licenseId+","+name+","+vels+","+nums+","+nums_class+","+engineId+","+jobId+",AA&gt;</span></div>";
+											content += "<div style='text-align:center;high:100px;margin:20px;'><a><button id='copy_btn' data-clipboard-action='copy' data-clipboard-target='#sms_cmd'>复制</button></a></div>";
+							
+							
+								$("#sms").html(content);			
+										
+						}
+
+				$(document).ready(function(){
+
+					//点击示例参数方法
+				
+
+
+               $('#self').click(function(){
+	                      location.reload() ;
+						
+    });
+
+	$("#self_add").click(function(){
+							$("p").hide();
+
+								$("#code").val("1234567");//驾驶员代码 
+								$("#licenseId").val("440902190000000000");//驾驶证号码
+								$("#name").val("张三");//驾驶员姓名  
+							$("#vels").val("LGGR3BG30JL523564");//车架号
+							$("#nums").val("桂K12345");//车牌号
+							$("#double_ip").val("危险品车");//车牌分类
+							$("#engineId").val("JA6L2J5044");//发动机号 
+							
+							
+							$("#jobId").val("440902197510272838");//身份证证号码  
+							
+							
+						
+						
+
+				upperCase();
+				});
+
+
+});
+
+
+//查询输入的中文内容有多少个字节
+
+
+           function countLength(str) { 
+                var r = 0; 
+                 for (var i = 0; i < str.length; i++) { 
+                     var c = str.charCodeAt(i); 
+      
+                    if ( (c >= 0x0 && c < 0x81) || (c == 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) { 
+                     r += 1; 
+                     } else { 
+                        r += 2; 
+                     } 
+                     } 
+                 return r; 
+            } 
+		</script>
+		
+	
+	</body>
+</html>
