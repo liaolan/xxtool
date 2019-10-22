@@ -30,17 +30,17 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: 查查兔
-subtitle: 青，取之于蓝而青于蓝；冰，水为之而寒于水。
+title: Your awesome title
+subtitle: Your awesome subtitle
 description: >- # this means to ignore newlines until "baseurl:"
-  有人住高楼,有人在深沟,有人光万丈,有人一身锈,
-  世人万千种,浮云莫去求,斯人若彩虹,遇上方知有。
-author: liaolan
-email: lllgo@qq.com
+  This is the demo site for a Jekyll theme version of
+  HTML5 UP's sleek, responsive site template Prologue.
+author: Your Incredible Name
+email: your-email@example.com
 avatar: assets/images/avatar.jpg
 
 # You'll want to customize url and baseurl for your own site:
-baseurl: "/xxtool" # the subpath of your site, e.g. /blog
+baseurl: "/jekyll-theme-prologue" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 
 # Social settings
