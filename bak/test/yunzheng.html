@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>广西运证相关信息查询</title>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+	function openWin_dt(){
+		myWindow=window.open('http://wx1.gxyz.gov.cn/weixin/View/GX/DynamicInformation.html', 'yz_dt_data', 'height=520, width=350, top=200, left=840');
+		myWindow.focus();
+	}
+	function openWin_jc(){
+		myWindow=window.open('http://wx1.gxyz.gov.cn/weixin/View/GX/SearchYZData.aspx', 'yz_jc_data', 'height=750, width=450, top=200, left=1200');
+		myWindow.focus();
+	}
+</script>
+</head>
+<body>
+
+<input type="button" value="动态信息" onclick="openWin_dt()" />
+<input type="button" value="基础信息" onclick="openWin_jc()" />
+<input type="button" value="同时打开" onclick="openWin_dt();openWin_jc()" />
+<br>
+<iframe width="48%" height="850" id="pc" src="http://www.gxyz.gov.cn/bszn/yzxxcx/?indexquery2=index&VehicleId=%E6%A1%82KR6698&CertId=450981100154"></iframe>
+<iframe width="48%" height="850" id="wx" src="http://wx1.gxyz.gov.cn/WebWZ/yzcxjg.aspx?TYPE=Vehicle&CCERTID=450981100230&VEHICLEID=%E6%A1%82KR6365"></iframe>
+</body>
+<script>
+
+</script>
+</html>
